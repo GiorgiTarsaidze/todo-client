@@ -124,6 +124,17 @@ li {
     gap: 30px;
     align-items: center;
     border-bottom: 1px solid #E3E4F1;
+    justify-content: space-between;
+}
+
+li img {
+    opacity: 0;
+    width: 18px;
+    height: 18px;
+}
+
+li:hover img {
+    opacity: 1;
 }
 
 ul {
@@ -204,6 +215,12 @@ h4 {
 
 .darkElement {
     background: #25273D;
+}
+
+.flex-cross {
+    display: flex;
+    gap: 30px;
+    align-items: center;
 }
 
 @media only screen and (max-width: 768px) {
