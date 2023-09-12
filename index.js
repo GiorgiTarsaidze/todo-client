@@ -2,6 +2,7 @@ let image=document.querySelector(".img");
 let background=document.querySelector(".background");
 let darkElement=document.querySelectorAll(".dark");
 let mainText=document.querySelectorAll(".main-text");
+// let checkboxItem=document.querySelectorAll(".checkbox-item");
 
 let num=0;
 
@@ -18,6 +19,7 @@ image.addEventListener("click",()=>{
     for(let z=0;z<mainText.length;z++){
         mainText[z].style.color="#C8CBE7"
     }
+
     num=1
     }else{
     document.body.style.backgroundColor="rgba(250,250,250,1)"
