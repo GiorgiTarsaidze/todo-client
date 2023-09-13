@@ -135,6 +135,7 @@ li img {
 
 li:hover img {
     opacity: 1;
+    cursor: pointer;
 }
 
 ul {

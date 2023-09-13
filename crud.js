@@ -33,6 +33,18 @@ async function fetchTasks() {
     taskslist.innerHTML = tasksListRenderString;
 }
 
+async function deleteTask(task_id){
+    try {
+        const response = await fetch(`${BASE_URL}${task_id}`, {
+            method: 'DELETE',
+        });
+
+        return true;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
 
 async function fetchTask(task_id) {
     const response = await fetch(`${BASE_URL}${task_id}/`);
