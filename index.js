@@ -2,7 +2,6 @@ let image=document.querySelector(".img");
 let background=document.querySelector(".background");
 let darkElement=document.querySelectorAll(".dark");
 let mainText=document.querySelectorAll(".main-text");
-// let checkboxItem=document.querySelectorAll(".checkbox-item");
 
 let num=0;
 
