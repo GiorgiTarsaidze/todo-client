@@ -1,8 +1,25 @@
 const BASE_URL = "http://localhost:8000/api/tasks/";
 
 
+async function createTask(task) {
+    try {
+        const response = await fetch(BASE_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(task)
+        });
+
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+
 const taskslist = document.getElementById("tasks-ul");
-console.log(taskslist)
 async function fetchTasks() {
     const response = await fetch(BASE_URL);
     const data = await response.json();
