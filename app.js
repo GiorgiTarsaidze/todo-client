@@ -33,12 +33,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 const taskIdToDelete = listItem.getAttribute('data-task-id');
                 
                 if (taskIdToDelete) {
-                    await deleteTask(taskIdToDelete);
-                    fetchTasks();
+                    await handleDeleteTask(taskIdToDelete);
                 }
             }
         }
+        if (e.target.classList.contains('checkbox-1')) {
+            const li = e.target.closest('li');
+            const task_id = li.getAttribute("data-task-id");
+            handleToggleCheckbox(task_id);
+        }
     });
     
-});
-
+    async function handleDeleteTask(taskId) {
+        try {
+            await deleteTask(taskId);
+            fetchTasks();
+        } catch (error) {
+            console.error('Error deleting task:', error);
+        }
+    }
+    
+    async function handleToggleCheckbox(taskId) {
+        try {
+            const task = await fetchTask(taskId);
+            await updateTask(taskId, { ...task, completed: !task.completed });
+            fetchTasks();
+        } catch (error) {
+            console.error('Error toggling checkbox:', error);
+        }
+    }
+});    
