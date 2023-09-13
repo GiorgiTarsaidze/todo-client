@@ -21,5 +21,3 @@ async function fetchTask(task_id) {
     const response = await fetch(`${BASE_URL}${task_id}/`);
     return await response.json();
 }
-
-fetchTasks()
