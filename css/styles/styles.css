@@ -127,10 +127,16 @@ li {
     justify-content: space-between;
 }
 
-li img {
+li div img {
     opacity: 0;
     width: 18px;
     height: 18px;
+    margin-left: 30px;
+}
+
+li div {
+    display: flex;
+    align-items: center;
 }
 
 li:hover img {

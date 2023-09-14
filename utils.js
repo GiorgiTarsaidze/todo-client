@@ -8,8 +8,10 @@ function renderTaskTemplate(task) {
             </div>
             <h3 class="main-text">${task.title}</h3>
             </div>
-            <img class="update-task" src="./images/icon-pencil.svg">
-            <img class="delete-task" src="./images/icon-cross.svg">
+            <div>
+              <img class="update-task" src="./images/icon-pencil.svg">
+              <img class="delete-task" src="./images/icon-cross.svg">
+            </div>
           </li>
     `;
 }
