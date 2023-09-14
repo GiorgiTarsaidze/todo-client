@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addTaskInput = addTaskForm.querySelector('.input-text');
     const addTaskButton = addTaskForm.querySelector('.checkbox-1');
     const taskList = document.getElementById('tasks-ul');
+    const activeFilterButton = document.querySelector('.active-filter');
 
     addTaskInput.addEventListener('keypress', async (e) => {
         if (e.key === 'Enter') {
@@ -62,6 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error toggling checkbox:', error);
         }
     }
+
+    activeFilterButton.addEventListener('click', async () => {
+        await fetchTasks({ completed: false });
+    });
+
 
     taskList.addEventListener('click', async (e) => {
         if (e.target.classList.contains('update-task')) {

@@ -20,8 +20,9 @@ async function createTask(task) {
 
 const taskLengthElement = document.querySelector('.task-length');
 const taskslist = document.getElementById("tasks-ul");
-async function fetchTasks() {
-    const response = await fetch(BASE_URL);
+async function fetchTasks(filter = {}) {
+    const queryParams = new URLSearchParams(filter);
+    const response = await fetch(`${BASE_URL}?${queryParams}`);
     const data = await response.json();
     const tasks = data.results
     const length = data.count
