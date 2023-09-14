@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addTaskButton = addTaskForm.querySelector('.checkbox-1');
     const taskList = document.getElementById('tasks-ul');
     const activeFilterButton = document.querySelector('.active-filter');
+    const allFilterButton = document.querySelector('.all-filter');
 
     addTaskInput.addEventListener('keypress', async (e) => {
         if (e.key === 'Enter') {
@@ -66,6 +67,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     activeFilterButton.addEventListener('click', async () => {
         await fetchTasks({ completed: false });
+    });
+
+    allFilterButton.addEventListener('click', async () => {
+        await fetchTasks();
     });
 
 
