@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeFilterButton = document.querySelector('.active-filter');
     const allFilterButton = document.querySelector('.all-filter');
     const completedFilterButton = document.querySelector('.completed-filter')
+    const clearCompletedButton = document.querySelector('.clear-completed');
 
     addTaskInput.addEventListener('keypress', async (e) => {
         if (e.key === 'Enter') {
@@ -77,6 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
     completedFilterButton.addEventListener('click', async () => {
         await fetchTasks({ completed: true});
     })
+
+    clearCompletedButton.addEventListener('click', async () => {
+        try {
+            await deleteCompletedTasks();
+        } catch (error) {
+            console.error('Error clearing completed tasks:', error);
+        }
+    });
 
 
     taskList.addEventListener('click', async (e) => {

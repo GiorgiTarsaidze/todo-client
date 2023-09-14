@@ -38,6 +38,36 @@ async function fetchTasks(filter = {}) {
     taskLengthElement.textContent = `${length} ${length === 1 ? 'item' : 'items'} left`;
 }
 
+async function deleteCompletedTasks() {
+    try {
+        const response = await fetch(`${BASE_URL}?completed=true`);
+        const data = await response.json();
+        const completedTasks = data.results.map(task => task.id);
+
+        if (completedTasks.length === 0) {
+            return;
+        }
+
+        const deleteResponse = await fetch(`${BASE_URL}delete_tasks/`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ taskIds: completedTasks }),
+        });
+
+        if (deleteResponse.ok) {
+            await fetchTasks();
+        } else {
+            console.error('Failed to clear completed tasks:', deleteResponse.status, deleteResponse.statusText);
+        }
+
+        await fetchTasks();
+    } catch (error) {
+        console.error('Error clearing completed tasks:', error);
+    }
+}
+
 async function deleteTask(task_id){
     try {
         const response = await fetch(`${BASE_URL}${task_id}`, {
