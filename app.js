@@ -62,4 +62,49 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error toggling checkbox:', error);
         }
     }
+
+    taskList.addEventListener('click', async (e) => {
+        if (e.target.classList.contains('update-task')) {
+            const listItem = e.target.closest('li');
+            if (listItem) {
+                const existingInput = listItem.querySelector('.edit-task-input');
+                if (existingInput) {
+                    return;
+                }
+
+                const taskText = listItem.querySelector('.main-text');
+                const originalText = taskText.textContent;
+                
+                const inputField = document.createElement('input');
+                inputField.value = originalText;
+                inputField.classList.add('edit-task-input');
+                
+                taskText.parentElement.appendChild(inputField);
+                taskText.style.display = 'none';
+
+                inputField.focus();
+
+                inputField.addEventListener('keypress', async (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const updatedText = inputField.value;
+                        const taskIdToUpdate = listItem.getAttribute('data-task-id');
+
+                        if (taskIdToUpdate) {
+                            try {
+                                const task = await fetchTask(taskIdToUpdate);
+                                await updateTask(taskIdToUpdate, {
+                                    ...task,
+                                    title: updatedText,
+                                });
+                                fetchTasks();
+                            } catch (error) {
+                                console.error('Error updating task:', error);
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    });
 });    

@@ -224,6 +224,28 @@ h4 {
     align-items: center;
 }
 
+.edit-task-input {
+    color: #494C6B;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.25px;
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.edit-task-input:hover,
+.edit-task-input:focus {
+    border: none;
+    box-shadow: none;
+    cursor: text;
+}
+
 @media only screen and (max-width: 768px) {
     .todo-container {
         width: 327px;
