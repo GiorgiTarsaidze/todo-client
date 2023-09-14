@@ -18,12 +18,14 @@ async function createTask(task) {
     }
 }
 
-
+const taskLengthElement = document.querySelector('.task-length');
 const taskslist = document.getElementById("tasks-ul");
 async function fetchTasks() {
     const response = await fetch(BASE_URL);
     const data = await response.json();
     const tasks = data.results
+    const length = data.count
+
     let tasksListRenderString = "";
     for (let task of tasks) {
         console.log(task)
@@ -31,6 +33,8 @@ async function fetchTasks() {
     }
 
     taskslist.innerHTML = tasksListRenderString;
+
+    taskLengthElement.textContent = `${length} ${length === 1 ? 'item' : 'items'} left`;
 }
 
 async function deleteTask(task_id){
