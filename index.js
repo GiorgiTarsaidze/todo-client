@@ -1,10 +1,10 @@
+let num = 0;
 function applyStyles() {
     let image = document.querySelector(".img");
     let background = document.querySelector(".background");
     let darkElement = document.querySelectorAll(".dark");
     let mainText = document.querySelectorAll(".main-text");
 
-    let num = 0;
 
     image.addEventListener("click", () => {
         if (num == 0) {
