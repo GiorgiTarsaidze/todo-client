@@ -18,6 +18,29 @@ async function createTask(task) {
     }
 }
 
+function applyDarkModeStyles() {
+    const darkElements = document.querySelectorAll(".checkbox-item");
+    const mainTextElements = document.querySelectorAll(".main-text");
+
+    if (isDarkMode) {
+        for (let i = 0; i < darkElements.length; i++) {
+            darkElements[i].classList.add("darkElement");
+        }
+        for (let z = 0; z < mainTextElements.length; z++) {
+            mainTextElements[z].style.color = "#C8CBE7";
+        }
+
+    } else {
+        for (let i = 0; i < darkElements.length; i++) {
+            darkElements[i].classList.remove("darkElement");
+        }
+        for (let z = 0; z < mainTextElements.length; z++) {
+            mainTextElements[z].style.color = "#494C6B";
+        }
+    }
+}
+
+
 const taskLengthElement = document.querySelector('.task-length');
 const taskslist = document.getElementById("tasks-ul");
 async function fetchTasks(filter = {}) {
@@ -36,6 +59,8 @@ async function fetchTasks(filter = {}) {
     taskslist.innerHTML = tasksListRenderString;
 
     taskLengthElement.textContent = `${length} ${length === 1 ? 'item' : 'items'} left`;
+
+    applyDarkModeStyles();
 }
 
 async function deleteCompletedTasks() {
