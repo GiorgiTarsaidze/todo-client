@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const inputField = document.createElement('input');
                 inputField.value = originalText;
                 inputField.classList.add('edit-task-input');
+                inputField.maxLength = 30;
                 
                 taskText.parentElement.appendChild(inputField);
                 taskText.style.display = 'none';
@@ -127,6 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
                                 console.error('Error updating task:', error);
                             }
                         }
+                    }
+                });
+                inputField.addEventListener('input', () => {
+                    const maxLength = 35;
+                    if (inputField.value.length > maxLength) {
+                        inputField.value = inputField.value.slice(0, maxLength);
                     }
                 });
             }

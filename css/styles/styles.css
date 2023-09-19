@@ -75,6 +75,7 @@ h2 {
     border-radius: 50%;
     border: 1px solid #E3E4F1;
     position: relative;
+    flex-shrink: 0;
 }
 
 .checkbox-1 {
