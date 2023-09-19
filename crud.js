@@ -44,24 +44,39 @@ function applyDarkModeStyles() {
 const taskLengthElement = document.querySelector('.task-length');
 const taskslist = document.getElementById("tasks-ul");
 async function fetchTasks(filter = {}) {
-    const queryParams = new URLSearchParams(filter);
-    const response = await fetch(`${BASE_URL}?${queryParams}`);
-    const data = await response.json();
-    const tasks = data.results
-    const length = data.count
-
-    let tasksListRenderString = "";
-    for (let task of tasks) {
-        console.log(task)
+    const { page = 1, ...otherFilters } = filter;
+  
+    const pageSize = 5;
+    const offset = (page - 1) * pageSize;
+  
+    const extendedFilter = {
+      ...otherFilters,
+      limit: pageSize,
+      offset,
+    };
+  
+    const queryParams = new URLSearchParams(extendedFilter);
+    try {
+      const response = await fetch(`${BASE_URL}?${queryParams}`);
+      const data = await response.json();
+      const tasks = data.results;
+      const length = data.count;
+  
+      let tasksListRenderString = "";
+      for (let task of tasks) {
         tasksListRenderString = tasksListRenderString + renderTaskTemplate(task);
+      }
+  
+      taskslist.innerHTML = tasksListRenderString;
+  
+      taskLengthElement.textContent = `${length} ${length === 1 ? 'item' : 'items'} left`;
+  
+      applyDarkModeStyles();
+      updatePaginationButtons(data);
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
     }
-
-    taskslist.innerHTML = tasksListRenderString;
-
-    taskLengthElement.textContent = `${length} ${length === 1 ? 'item' : 'items'} left`;
-
-    applyDarkModeStyles();
-}
+  }
 
 async function deleteCompletedTasks() {
     try {
@@ -72,7 +87,6 @@ async function deleteCompletedTasks() {
         if (completedTasks.length === 0) {
             return;
         }
-
         const deleteResponse = await fetch(`${BASE_URL}delete_tasks/`, {
             method: 'DELETE',
             headers: {
