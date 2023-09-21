@@ -43,14 +43,19 @@ function applyDarkModeStyles() {
 
 const taskLengthElement = document.querySelector('.task-length');
 const taskslist = document.getElementById("tasks-ul");
+
+let currentFilter = null;
+
 async function fetchTasks(filter = {}) {
     const { page = 1, ...otherFilters } = filter;
   
+    const combinedFilter = { ...currentFilter, ...otherFilters };
+
     const pageSize = 5;
     const offset = (page - 1) * pageSize;
   
     const extendedFilter = {
-      ...otherFilters,
+      ...combinedFilter,
       limit: pageSize,
       offset,
     };
@@ -80,7 +85,7 @@ async function fetchTasks(filter = {}) {
 
 async function deleteCompletedTasks() {
     try {
-        const response = await fetch(`${BASE_URL}?completed=true`);
+        const response = await fetch(`${BASE_URL}?completed=true&limit=1000`);
         const data = await response.json();
         const completedTasks = data.results.map(task => task.id);
 

@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 await createTask(task);
-                fetchTasks();
+                fetchTasks({ page: currentPage });
                 addTaskInput.value = '';
             } catch (error) {
                 console.error('Error creating task:', error);
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function handleDeleteTask(taskId) {
         try {
             await deleteTask(taskId);
-            fetchTasks();
+            fetchTasks({ page: currentPage });
         } catch (error) {
             console.error('Error deleting task:', error);
         }
@@ -61,22 +61,25 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const task = await fetchTask(taskId);
             await updateTask(taskId, { ...task, completed: !task.completed });
-            fetchTasks();
+            fetchTasks({ page: currentPage });
         } catch (error) {
             console.error('Error toggling checkbox:', error);
         }
     }
 
     activeFilterButton.addEventListener('click', async () => {
-        await fetchTasks({ completed: false });
+        currentFilter = { completed: false };
+        await fetchTasks({ ...currentFilter, page: currentPage });
     });
 
     allFilterButton.addEventListener('click', async () => {
-        await fetchTasks();
+        currentFilter = {};
+        await fetchTasks({ page: currentPage });
     });
 
     completedFilterButton.addEventListener('click', async () => {
-        await fetchTasks({ completed: true});
+        currentFilter = { completed: true };
+        await fetchTasks({ ...currentFilter, page: currentPage });
     })
 
     clearCompletedButton.addEventListener('click', async () => {
@@ -123,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     ...task,
                                     title: updatedText,
                                 });
-                                fetchTasks();
+                                fetchTasks({ page: currentPage });
                             } catch (error) {
                                 console.error('Error updating task:', error);
                             }
