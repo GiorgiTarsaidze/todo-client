@@ -309,6 +309,12 @@ h4 {
     color: #C8CBE7;
 }
 
+.active-filter-selected,
+.all-filter-selected,
+.completed-filter-selected {
+    color: #5243de;
+}
+
 @media only screen and (max-width: 768px) {
     .todo-container {
         width: 327px;

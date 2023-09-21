@@ -72,11 +72,17 @@ document.addEventListener('DOMContentLoaded', () => {
         currentFilter = { completed: false };
         await fetchTasks({ ...currentFilter, page: currentPage });
         updateCurrentPageText();
+
+        clearFilterButtonStyles();
+        activeFilterButton.classList.add('active-filter-selected');
     });
 
     allFilterButton.addEventListener('click', async () => {
         currentFilter = {};
         await fetchTasks({ page: currentPage });
+
+        clearFilterButtonStyles();
+        allFilterButton.classList.add('all-filter-selected');
     });
 
     completedFilterButton.addEventListener('click', async () => {
@@ -84,6 +90,9 @@ document.addEventListener('DOMContentLoaded', () => {
         currentFilter = { completed: true };
         await fetchTasks({ ...currentFilter, page: currentPage });
         updateCurrentPageText();
+
+        clearFilterButtonStyles();
+        completedFilterButton.classList.add('completed-filter-selected');
     })
 
     clearCompletedButton.addEventListener('click', async () => {
@@ -146,4 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    function clearFilterButtonStyles() {
+        activeFilterButton.classList.remove('active-filter-selected');
+        allFilterButton.classList.remove('all-filter-selected');
+        completedFilterButton.classList.remove('completed-filter-selected');
+    }
 });    
