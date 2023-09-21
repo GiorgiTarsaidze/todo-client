@@ -68,8 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     activeFilterButton.addEventListener('click', async () => {
+        currentPage = 1;
         currentFilter = { completed: false };
         await fetchTasks({ ...currentFilter, page: currentPage });
+        updateCurrentPageText();
     });
 
     allFilterButton.addEventListener('click', async () => {
@@ -78,8 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     completedFilterButton.addEventListener('click', async () => {
+        currentPage = 1;
         currentFilter = { completed: true };
         await fetchTasks({ ...currentFilter, page: currentPage });
+        updateCurrentPageText();
     })
 
     clearCompletedButton.addEventListener('click', async () => {
