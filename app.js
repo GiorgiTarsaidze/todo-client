@@ -5,10 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const addTaskInput = addTaskForm.querySelector('.input-text');
     const addTaskButton = addTaskForm.querySelector('.checkbox-1');
     const taskList = document.getElementById('tasks-ul');
-    const activeFilterButton = document.querySelector('.active-filter');
-    const allFilterButton = document.querySelector('.all-filter');
-    const completedFilterButton = document.querySelector('.completed-filter')
+    const activeFilterButton = Array.from(document.querySelectorAll('.active-filter'));
+    const allFilterButton = Array.from(document.querySelectorAll('.all-filter'));
+    const completedFilterButton = Array.from(document.querySelectorAll('.completed-filter'));
     const clearCompletedButton = document.querySelector('.clear-completed');
+
+    const defaultFilterButton = document.querySelector('.default-filter');
+    defaultFilterButton.classList.add('filter-selected');
 
     addTaskInput.addEventListener('keypress', async (e) => {
         if (e.key === 'Enter') {
@@ -67,33 +70,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    activeFilterButton.addEventListener('click', async () => {
-        currentPage = 1;
-        currentFilter = { completed: false };
-        await fetchTasks({ ...currentFilter, page: currentPage });
-        updateCurrentPageText();
+    function addFilterButtonListeners(filterButtons, filter) {
+        filterButtons.forEach((button) => {
+            button.addEventListener('click', async () => {
+                currentPage = 1;
+                currentFilter = filter;
+                await fetchTasks({ ...currentFilter, page: currentPage });
+                updateCurrentPageText();
 
-        clearFilterButtonStyles();
-        activeFilterButton.classList.add('active-filter-selected');
-    });
+                clearFilterButtonStyles();
+                button.classList.add('filter-selected');
+            });
+        });
+    }
 
-    allFilterButton.addEventListener('click', async () => {
-        currentFilter = {};
-        await fetchTasks({ page: currentPage });
-
-        clearFilterButtonStyles();
-        allFilterButton.classList.add('all-filter-selected');
-    });
-
-    completedFilterButton.addEventListener('click', async () => {
-        currentPage = 1;
-        currentFilter = { completed: true };
-        await fetchTasks({ ...currentFilter, page: currentPage });
-        updateCurrentPageText();
-
-        clearFilterButtonStyles();
-        completedFilterButton.classList.add('completed-filter-selected');
-    })
+    addFilterButtonListeners(allFilterButton, {});
+    addFilterButtonListeners(activeFilterButton, { completed: false });
+    addFilterButtonListeners(completedFilterButton, { completed: true });
 
     clearCompletedButton.addEventListener('click', async () => {
         try {
@@ -102,6 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error clearing completed tasks:', error);
         }
     });
+
+    function clearFilterButtonStyles() {
+        allFilterButton.forEach((button) => button.classList.remove('filter-selected'));
+        activeFilterButton.forEach((button) => button.classList.remove('filter-selected'));
+        completedFilterButton.forEach((button) => button.classList.remove('filter-selected'));
+    }
 
 
     taskList.addEventListener('click', async (e) => {
@@ -155,10 +154,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-
-    function clearFilterButtonStyles() {
-        activeFilterButton.classList.remove('active-filter-selected');
-        allFilterButton.classList.remove('all-filter-selected');
-        completedFilterButton.classList.remove('completed-filter-selected');
-    }
 });    

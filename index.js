@@ -8,6 +8,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const mainTextElements = document.querySelectorAll(".main-text");
     const paginationButtons = document.querySelectorAll(".pagination button");
     const currentPageText = document.getElementById("currentPage");
+    const mobileFooter = document.querySelector(".mobile-footer");
+
+    function toggleMobileFooter() {
+        const screenWidth = window.innerWidth;
+
+        if (screenWidth <= 768) {
+            mobileFooter.style.display = "flex";
+        } else {
+            mobileFooter.style.display = "none";
+        }
+    }
+
+    toggleMobileFooter();
+    window.addEventListener("resize", toggleMobileFooter);
 
     function toggleDarkMode() {
         isDarkMode = !isDarkMode;

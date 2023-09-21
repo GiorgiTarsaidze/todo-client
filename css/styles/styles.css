@@ -208,7 +208,6 @@ h4 {
     margin-top: 16px;
     justify-content: center;
     background: white;
-    display: none;
 }
 
 .mobile-flex {
@@ -309,20 +308,15 @@ h4 {
     color: #C8CBE7;
 }
 
-.active-filter-selected,
-.all-filter-selected,
-.completed-filter-selected {
-    color: #5243de;
+.filter-selected {
+    color: #727171;
+    font-weight: bold;
 }
 
 @media only screen and (max-width: 768px) {
     .todo-container {
         width: 327px;
     }    
-
-    .mobile-footer {
-        display: flex;
-    }
 
     .active-text {
         display: none;
