@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const container = document.querySelector(".todo-container");
     const darkElements = document.querySelectorAll(".dark");
     const mainTextElements = document.querySelectorAll(".main-text");
+    const paginationButtons = document.querySelectorAll(".pagination button");
+    const currentPageText = document.getElementById("currentPage");
 
     function toggleDarkMode() {
         isDarkMode = !isDarkMode;
@@ -23,6 +25,11 @@ document.addEventListener("DOMContentLoaded", function () {
             background.style.backgroundImage = "url('/images/bg-desktop-dark.jpg')";
             image.src = "./images/icon-sun.svg";
 
+            for (let button of paginationButtons) {
+                button.classList.add("dark-mode");
+            }
+            currentPageText.classList.add("dark-mode");
+
             applyDarkModeStyles();
         } else {
             container.classList.remove("dark-mode");
@@ -37,6 +44,11 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.style.backgroundColor = "rgba(250,250,250,1)";
             background.style.backgroundImage = "url('/images/bg-desktop-light.jpg')";
             image.src = "./images/icon-moon.svg";
+
+            for (let button of paginationButtons) {
+                button.classList.remove("dark-mode");
+            }
+            currentPageText.classList.remove("dark-mode");
 
             applyDarkModeStyles();
         }

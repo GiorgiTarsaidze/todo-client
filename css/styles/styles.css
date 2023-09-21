@@ -272,12 +272,41 @@ h4 {
     outline: none;
 }
 
+#prevPage:hover,
+#nextPage:hover {
+    background-color: #E3E4F1;
+}
+
 #prevPage[disabled],
 #nextPage[disabled] {
-  background-color: #F3F4F6;
-  border: 1px solid #F3F4F6;
-  color: #C8CBE7;
-  cursor: not-allowed;
+    background-color: #F3F4F6;
+    border: 1px solid #F3F4F6;
+    color: #C8CBE7;
+    cursor: not-allowed;
+}
+
+.dark-mode #prevPage,
+.dark-mode #nextPage {
+    border-color: #C8CBE7;
+    color: #C8CBE7;
+}
+
+.dark-mode #prevPage:hover,
+.dark-mode #nextPage:hover {
+    background-color: #494C6B;
+    border-color: #494C6B;
+}
+
+.dark-mode #prevPage[disabled],
+.dark-mode #nextPage[disabled] {
+    background-color: #25273D;
+    border: 1px solid #25273D;
+    color: #c8cbe7a7;
+    cursor: not-allowed;
+}
+
+.dark-mode #currentPage {
+    color: #C8CBE7;
 }
 
 @media only screen and (max-width: 768px) {
