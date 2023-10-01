@@ -2,6 +2,7 @@
 
 This is the frontend client for a Todo App project, designed to work in conjunction with a [Django REST framework (DRF) backend](https://github.com/GiorgiTarsaidze/todo-server): 
 The frontend is responsible for creating, updating, and managing tasks, as well as providing a user-friendly interface for users to interact with their to-do list.
+This frontend client communicates with a Django REST framework (DRF) backend to fetch, create, update, and delete tasks. Ensure that the backend server is running and accessible for full functionality.
 
 ## Features 
 - Create new tasks with checkboxes.
